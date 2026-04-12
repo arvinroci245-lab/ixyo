@@ -1,0 +1,5 @@
+/*
+  Content-Security-Policy: default-src * 'unsafe-inline' 'unsafe-eval' data: blob:
+  Cross-Origin-Resource-Policy: cross-origin
+  Cross-Origin-Embedder-Policy: unsafe-none
+  Cross-Origin-Opener-Policy: unsafe-none
