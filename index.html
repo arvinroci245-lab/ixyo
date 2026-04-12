@@ -340,7 +340,9 @@ header { display:flex;align-items:center;justify-content:space-between;padding:1
 // Ordered list of UV-compatible proxy backends. The first reachable one is used.
 // If one goes down, swap the order or add new entries.
 const UV_BACKENDS = [
-  'https://casino-recommend-nikon-compiled.trycloudflare.com/service/'
+  'https://holyunblocker.org/service/',         // Holy Unblocker official (primary)
+  'https://beta.holyunblocker.org/service/',    // Holy Unblocker beta
+  'https://un-block-tms.neocities.org/service/' // Neocities fallback
 ];
 
 // Active prefix — auto-selected by checkUVBackend() on load, defaults to first
@@ -357,9 +359,13 @@ let UV_PREFIX = UV_BACKENDS[0];
   }
 })();
 
-function uvEncode(url) {
-  // Standard UV encoding — encodeURIComponent is compatible with UV v1/v2 bare servers
-  return encodeURIComponent(url);
+function uvEncode(str) {
+  // UV XOR codec — XORs alphanumeric chars with key 2, then encodeURIComponent
+  return encodeURIComponent(
+    str.replace(/[a-z0-9+/=]/gi, char =>
+      String.fromCharCode(char.charCodeAt(0) ^ 2)
+    )
+  );
 }
 
 function buildUVUrl(url) {
